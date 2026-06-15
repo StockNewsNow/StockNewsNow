@@ -1,0 +1,17 @@
+name: scan-reddit-sentiment
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch: {}
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger scan
+        run: |
+          curl -sS -X GET \
+            "${{ secrets.SCAN_URL }}?secret=${{ secrets.SCAN_SECRET }}" \
+            --max-time 60 \
+            -w "\nHTTP %{http_code}\n"
