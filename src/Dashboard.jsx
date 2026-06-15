@@ -20,7 +20,7 @@ const SOURCES = [
 ]
 
 export default function Dashboard() {
-  const { isPro, signOut, profile } = useAuth()
+  const { isPro, isAdmin, signOut, profile } = useAuth()
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -95,7 +95,12 @@ export default function Dashboard() {
             <RefreshCw size={12} style={{ animation: spinning ? 'spin 0.6s linear infinite' : 'none' }} />
             refresh
           </button>
-          {isPro && (
+          {isAdmin && (
+            <span style={{ fontFamily: 'var(--mono)', fontSize: 10, color: 'var(--amber)', border: '1px solid var(--amber-dim)', background: 'var(--amber-dim)', padding: '4px 8px', borderRadius: 4, letterSpacing: '0.06em' }}>
+              ADMIN
+            </span>
+          )}
+          {isPro && !isAdmin && (
             <span style={{ fontFamily: 'var(--mono)', fontSize: 10, color: 'var(--bull)', border: '1px solid var(--bull-dim)', background: 'var(--bull-dim)', padding: '4px 8px', borderRadius: 4, letterSpacing: '0.06em' }}>
               PRO
             </span>

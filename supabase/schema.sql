@@ -90,7 +90,8 @@ $$;
 create table if not exists profiles (
   id          uuid primary key references auth.users(id) on delete cascade,
   email       text,
-  is_pro      boolean     not null default false,   -- flipped true by the Stripe webhook
+  is_pro      boolean     not null default false,
+  is_admin    boolean     not null default false,
   stripe_customer_id text,
   created_at  timestamptz default now()
 );

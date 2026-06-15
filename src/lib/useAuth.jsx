@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
     if (!uid || !supabase) { setProfile(null); return }
     const { data } = await supabase
       .from('profiles')
-      .select('id, email, is_pro')
+      .select('id, email, is_pro, is_admin')
       .eq('id', uid)
       .single()
     setProfile(data || null)
@@ -52,7 +52,8 @@ export function AuthProvider({ children }) {
     user,
     profile,
     loading,
-    isPro: Boolean(profile?.is_pro),
+    isPro: Boolean(profile?.is_pro || profile?.is_admin),
+    isAdmin: Boolean(profile?.is_admin),
     isConfigured,
     refreshProfile,
     signOut,
